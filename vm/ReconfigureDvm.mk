@@ -27,6 +27,15 @@ endif
 
 include $(LOCAL_PATH)/Dvm.mk
 
+ifeq ($(TARGET_OS),gnu_linux)
+LOCAL_SHARED_LIBRARIES += \
+	libbacktrace \
+	libcutils \
+	liblog \
+	libnativehelper \
+	libutils \
+	libz
+else
 LOCAL_SHARED_LIBRARIES += \
 	libbacktrace \
 	libcutils \
@@ -36,11 +45,14 @@ LOCAL_SHARED_LIBRARIES += \
 	libselinux \
 	libutils \
 	libz
+endif
 
 LOCAL_STATIC_LIBRARIES += libdex
 
+ifneq ($(TARGET_OS),gnu_linux)
 LOCAL_C_INCLUDES += external/stlport/stlport bionic/ bionic/libstdc++/include
 LOCAL_SHARED_LIBRARIES += libstlport
+endif
 
 # Don't install on any build by default
 LOCAL_MODULE_TAGS := optional

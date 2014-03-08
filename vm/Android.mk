@@ -60,6 +60,9 @@ endif
 LOCAL_ASFLAGS := $(LOCAL_CFLAGS)
 
 LOCAL_32_BIT_ONLY := true
+ifeq ($(TARGET_OS),gnu_linux)
+LOCAL_LDLIBS += -lpthread -ldl
+endif
 include $(BUILD_SHARED_LIBRARY)
 
 # Derivation #1
@@ -86,6 +89,9 @@ LOCAL_LDFLAGS_x86 += -Wl,--no-fatal-warnings
 # MIPS support for self-verification is incomplete
 LOCAL_MODULE_UNSUPPORTED_TARGET_ARCH := mips
 LOCAL_32_BIT_ONLY := true
+ifeq ($(TARGET_OS),gnu_linux)
+LOCAL_LDLIBS += -lpthread -ldl
+endif
 include $(BUILD_SHARED_LIBRARY)
 
 # Derivation #3
@@ -98,6 +104,9 @@ LOCAL_ASFLAGS := $(LOCAL_CFLAGS)
 LOCAL_MODULE := libdvm_interp
 LOCAL_LDFLAGS_x86 += -Wl,--no-fatal-warnings
 LOCAL_32_BIT_ONLY := true
+ifeq ($(TARGET_OS),gnu_linux)
+LOCAL_LDLIBS += -lpthread -ldl
+endif
 include $(BUILD_SHARED_LIBRARY)
 
 

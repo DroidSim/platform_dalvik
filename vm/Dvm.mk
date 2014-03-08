@@ -291,7 +291,7 @@ ifeq ($(dvm_arch),mips)
 endif
 
 ifeq ($(dvm_arch),x86)
-  ifeq ($(dvm_os),linux)
+  ifeq ($(dvm_os),$(filter $(dvm_os),linux gnu_linux))
     MTERP_ARCH_KNOWN := true
     LOCAL_CFLAGS += -DDVM_JMP_TABLE_MTERP=1 \
                     -DMTERP_STUB
