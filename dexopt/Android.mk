@@ -35,12 +35,18 @@ endif
 
 LOCAL_SRC_FILES := $(local_src_files)
 LOCAL_C_INCLUDES := $(local_c_includes)
+ifeq ($(TARGET_OS),gnu_linux)
+LOCAL_SHARED_LIBRARIES := libdvm libicuuc libicui18n libcutils libexpat liblog libz
+else
 LOCAL_SHARED_LIBRARIES := libssl libdvm libcrypto libicuuc libicui18n libcutils libexpat liblog libz
+endif
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := dexopt
 
+ifneq ($(TARGET_OS),gnu_linux)
 LOCAL_C_INCLUDES += external/stlport/stlport bionic/ bionic/libstdc++/include
 LOCAL_SHARED_LIBRARIES += libstlport
+endif
 
 LOCAL_32_BIT_ONLY := true
 include $(BUILD_EXECUTABLE)
